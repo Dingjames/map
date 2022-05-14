@@ -1,0 +1,121 @@
+.map-container {
+  width: 200%;
+  height: 130%;
+  overflow: hidden;
+  position: relative;
+}
+
+#map {
+  height: 100%;
+  margin-left: -240px;
+  // negative width of overlay + left margin/horizontal position
+}
+
+#map:before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  border-left: 1px solid lightgreen;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#map:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  border-top: 1px solid lightgreen;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#map-overlay {
+  width: 200px;
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  bottom: 40px;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  padding: 20px;
+}
+
+#map {
+  .move-google-maps-attr(240px);
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Maps logo and controls
+// https://www.google.com/permissions/geoguidelines/attr-guide.html
+// https://web.archive.org/web/20160505030052/http://www.google.com/permissions/geoguidelines/attr-guide.html
+// The automatically generated Google logo and data provider attribution may only be removed or obstructed if reintroduced in a visible form elsewhere within the Content (e.g. photo caption below a Google Earth still). In other words, your text must be as visible as it would have been if you had used the default text that we provide.
+// .gm-style:first-child is standard map view
+//  1 : map
+//  2 : google logo
+//  3 : map-data window
+//  4 : map data
+//  5 : map data (noscreen)
+//  6 : terms of use
+//  7 : full screen
+//  8 : report map error
+//  9 : map controls
+// 10 : map type controls
+.move-google-maps-attr(@a_horizontal) {
+  > .gm-style:first-child {
+    > div {
+      margin-left: -(@a_horizontal) !important;
+      margin-right: @a_horizontal !important;
+    }
+    > div:first-child,
+    > div:nth-child(3),
+    > div:nth-child(9),
+    > div:nth-child(10) {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+    > div:nth-child(2) {
+      left: @a_horizontal !important;
+      margin-left: 5px !important;
+      margin-right: 5px !important;
+    }
+    > div:nth-child(4) {
+      width: auto !important;
+      > div {
+        > div:nth-child(2) {
+          > a {
+            // Map Data link
+            display: inline !important;
+          }
+          > span {
+            // Map data text
+            display: none !important;
+          }
+        }
+      }
+    }
+    > div:nth-child(7),
+    > div:nth-child(9) {
+      margin-right: 10px + @a_horizontal !important;
+      /* +10px; */
+    }
+    > div:nth-child(10) {
+      margin-left: 10px + @a_horizontal !important;
+      /* +10px; */
+    }
+  }
+}
