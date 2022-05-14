@@ -1,0 +1,28 @@
+var map;
+var latLng = [
+  { lat: -25.5695769, lng: 134.5407184 },
+  { lat: -25.4695769, lng: 133.5407184 },
+  { lat: -25.8695769, lng: 133.7407184 }
+];
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 8,
+    center: latLng[0],
+  });
+  
+  for (var i = 0; i < latLng.length; i++)
+    new google.maps.Marker({
+      position: latLng[i],
+      map: map
+    });
+}
+
+initMap();
+
+var i = 0;
+$('#click-me').click(function() {
+  i = ++i % latLng.length;
+  console.log(latLng[i])
+  map.panTo(latLng[i]);
+});
